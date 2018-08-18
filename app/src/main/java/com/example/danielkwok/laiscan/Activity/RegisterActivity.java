@@ -3,6 +3,7 @@ package com.example.danielkwok.laiscan.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText register_desc_et;
     private EditText register_lat_et;
     private EditText register_long_et;
+    private Button register_new_loc_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         register_desc_et = (EditText) findViewById(R.id.register_desc_et);
         register_lat_et = (EditText) findViewById(R.id.register_lat_et);
         register_long_et = (EditText) findViewById(R.id.register_long_et);
+        register_new_loc_btn = (Button) findViewById(R.id.register_new_loc_btn);
     }
 }
