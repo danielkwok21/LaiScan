@@ -5,27 +5,17 @@ import java.util.UUID;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Marker extends RealmObject{
+public class QRCode{
 
-    @PrimaryKey
-    private String id;
-
-    private long createdAt;
     private String name;
     private String desc;
     private String latitude;
     private String longtitude;
 
-    public Marker(){
-    }
 
-
-    public Marker(String name, String desc, String latitude, String longtitude){
-        this.createdAt = System.currentTimeMillis();
-        this.id = UUID.randomUUID().toString();
+    public QRCode(String name, String desc, String latitude, String longtitude){
         this.name = name;
         this.desc = desc;
-
         this.latitude = latitude;
         this.longtitude = longtitude;
     }
@@ -37,9 +27,6 @@ public class Marker extends RealmObject{
     public String getDesc() {
         return desc;
     }
-    public String getId() {
-        return id;
-    }
 
     public String getLatitude() {
         return latitude;
@@ -49,7 +36,4 @@ public class Marker extends RealmObject{
         return longtitude;
     }
 
-    public long getCreatedAt() {
-        return createdAt;
-    }
 }

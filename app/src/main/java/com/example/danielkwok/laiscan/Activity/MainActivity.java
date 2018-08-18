@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity{
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     private Button main_scan_btn;
-    private TextView main_long_t, main_lat_t;
+    private Button main_gen_btn;
+    private TextView main_long_t;
+    private TextView main_lat_t;
     private IntentIntegrator QRScan;
 
     private Marker marker;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         main_scan_btn = (Button) findViewById(R.id.main_scan_btn);
+        main_gen_btn = (Button) findViewById(R.id.main_gen_btn);
         main_long_t = (TextView) findViewById(R.id.main_long_t);
         main_lat_t =  (TextView) findViewById(R.id.main_lat_t);
         QRScan = new IntentIntegrator(this);
@@ -57,6 +60,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 QRScan.initiateScan();
+            }
+        });
+
+        main_gen_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), QRGeneratorActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -73,7 +84,10 @@ public class MainActivity extends AppCompatActivity{
             }else{
                 try{
                     JSONObject obj = new JSONObject(result.getContents());
-                    marker = new Marker(obj.getString("long"),
+                    marker = new Marker(
+                            obj.getString("name"),
+                            obj.getString("desc"),
+                            obj.getString("long"),
                             obj.getString("lat"));
                     RealmManager.write(marker);
                     results.addChangeListener(new RealmChangeListener<RealmResults<Marker>>() {

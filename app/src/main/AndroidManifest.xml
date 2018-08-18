@@ -3,6 +3,7 @@
     package="com.example.danielkwok.laiscan">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -38,7 +39,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Activity.RegisterActivity"></activity>
+        <activity android:name=".Activity.QRGeneratorActivity"></activity>
     </application>
 
 </manifest>
