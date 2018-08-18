@@ -43,22 +43,6 @@ public class MainActivity extends AppCompatActivity{
     private Realm realm;
     private RealmResults<Marker> results;
 
-//    public boolean isServicesOK(){
-//        Log.d(TAG, "isServicesOK: checking google services version");
-//        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
-//        if(available == ConnectionResult.SUCCESS) {
-//            //everything is ok
-//            Log.d(TAG, "isServicesOK: Google Play services is working");
-//        }else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
-//            //error but can resolve
-//            Log.d(TAG, "isServicesOK: an error occured");
-//            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
-//        }else{
-//            Utils.writeToast(this, "You can't make map requests");
-//        }
-//        return false;
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

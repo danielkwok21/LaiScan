@@ -10,7 +10,6 @@ public class Marker extends RealmObject{
     @PrimaryKey
     private String id;
 
-
     private long createdAt;
     private String latitude;
     private String longtitude;
