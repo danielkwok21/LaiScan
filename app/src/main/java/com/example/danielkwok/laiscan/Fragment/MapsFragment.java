@@ -25,7 +25,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     private GoogleMap mMap;
 
     public MapsFragment(){
-
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.danielkwok.laiscan.Class.Marker;
 import com.example.danielkwok.laiscan.Class.Utils;
 import com.example.danielkwok.laiscan.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity{
     private Button main_scan_btn;
     private TextView main_long_t, main_lat_t;
     private IntentIntegrator QRScan;
+
+    private Marker marker;
 
 //    public boolean isServicesOK(){
 //        Log.d(TAG, "isServicesOK: checking google services version");
@@ -70,14 +73,15 @@ public class MainActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result!=null){
-            //if qrcode is empty
             if(result.getContents()==null){
                 Toast.makeText(this,"Empty QR Code", Toast.LENGTH_LONG).show();
             }else{
                 try{
                     JSONObject obj = new JSONObject(result.getContents());
-                    main_long_t.setText(obj.getString("long"));
-                    main_lat_t.setText(obj.getString("lat"));
+                    marker = new Marker(obj.getString("long"), obj.getString("lat"));
+
+                    main_long_t.setText();
+                    main_lat_t.setText();
                 }catch(JSONException e){
                     Log.d(TAG, e.toString());
                     Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
