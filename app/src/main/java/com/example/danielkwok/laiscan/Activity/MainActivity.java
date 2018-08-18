@@ -11,6 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.danielkwok.laiscan.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -21,16 +27,20 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity{
     private Button main_scan_btn;
     private TextView main_long_t, main_lat_t;
+    private String latitude;
+    private String longtitude;
+
     private IntentIntegrator QRScan;
     private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        main_scan_btn = findViewById(R.id.main_scan_btn);
-        main_long_t = findViewById(R.id.main_long_t);
-        main_lat_t = findViewById(R.id.main_lat_t);
+        main_scan_btn = (Button) findViewById(R.id.main_scan_btn);
+        main_long_t = (TextView) findViewById(R.id.main_long_t);
+        main_lat_t = (TextView) findViewById(R.id.main_lat_t);
         QRScan = new IntentIntegrator(this);
 
         main_scan_btn.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
                 QRScan.initiateScan();
             }
         });
+
     }
 
     @Override
@@ -51,8 +62,11 @@ public class MainActivity extends AppCompatActivity{
             }else{
                 try{
                     JSONObject obj = new JSONObject(result.getContents());
-                    main_long_t.setText(obj.getString("long"));
-                    main_lat_t.setText(obj.getString("lat"));
+                    latitude = obj.getString("lat");
+                    longtitude = obj.getString("long");
+
+                    main_long_t.setText(longtitude);
+                    main_lat_t.setText(latitude);
                 }catch(JSONException e){
                     Log.d(TAG, e.toString());
                     Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();

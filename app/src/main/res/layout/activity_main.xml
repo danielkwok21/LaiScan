@@ -13,43 +13,19 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="16dp"
         android:text="Scan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/main_long_label"
-        android:layout_width="79dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Lat: "
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000"
-        app:layout_constraintEnd_toStartOf="@+id/main_long_t"
-        app:layout_constraintTop_toBottomOf="@+id/main_long_t" />
-
-    <TextView
-        android:id="@+id/main_long_t"
-        android:layout_width="263dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="44dp"
-        android:text="Long"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_scan_btn" />
-
-    <TextView
         android:id="@+id/main_lat_label"
         android:layout_width="79dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="44dp"
-        android:text="Long: "
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="32dp"
+        android:text="Lat: "
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000"
         app:layout_constraintEnd_toStartOf="@+id/main_long_t"
@@ -57,14 +33,49 @@
 
     <TextView
         android:id="@+id/main_lat_t"
-        android:layout_width="263dp"
+        android:layout_width="216dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Lat"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="40dp"
+        android:hint="Latitude"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_scan_btn" />
+
+    <TextView
+        android:id="@+id/main_long_label"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Long: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        app:layout_constraintEnd_toStartOf="@+id/main_long_t"
+        app:layout_constraintTop_toBottomOf="@+id/main_lat_label" />
+
+    <TextView
+        android:id="@+id/main_long_t"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:hint="Long"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_lat_t" />
+
+    <include
+        layout="@layout/activity_maps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_long_t" />
 
 </android.support.constraint.ConstraintLayout>
