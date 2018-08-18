@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.danielkwok.laiscan.Class.Marker;
+import com.example.danielkwok.laiscan.Database.RealmManager;
 import com.example.danielkwok.laiscan.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,11 +21,23 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmObject;
+import io.realm.RealmResults;
+
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback{
+    private static final String TAG = "MapsFragment";
 
     private SupportMapFragment supportMapFragment;
     private GoogleMap mMap;
+
+    private Realm realm;
+    private RealmResults<Marker> results;
+
+    private Double latitude = 38.897770;
+    private Double longtitude =  -77.036527;
 
     public MapsFragment(){
     }
@@ -40,16 +55,42 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
             fragmentTransaction.replace(R.id.map, supportMapFragment).commit();
         }
         supportMapFragment.getMapAsync(this);
+
+        realm = RealmManager.open();
+        results = realm.where(Marker.class).findAll();
+
         return v;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap = googleMap;
+        results.addChangeListener(new RealmChangeListener<RealmResults<Marker>>() {
+            @Override
+            public void onChange(RealmResults<Marker> element) {
+                realm = RealmManager.open();
+                newCoordinates();
+            }
+        });
+        newCoordinates();
     }
+
+    private void newCoordinates(){
+        Marker newMarker;
+        try{
+            newMarker = RealmManager.getLatest();
+            latitude = Double.parseDouble(newMarker.getLatitude());
+            longtitude = Double.parseDouble(newMarker.getLongtitude());
+
+            // Add a new marker and move the camera
+            LatLng newCoordinate = new LatLng(longtitude, latitude);
+            mMap.addMarker(new MarkerOptions().position(newCoordinate).title("New marker!"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(newCoordinate));
+        }catch(Exception e){
+            Log.d(TAG, e.toString());
+        }
+    }
+
+
 }

@@ -25,35 +25,40 @@ public class RealmManager {
         }
     }
 
+    public static Marker getLatest(){
+        RealmResults<Marker> markers = realm.where(Marker.class).findAllSorted("createdAt");
+        return markers.last();
+    }
+
     //always call open() before calling write() and close() after
-    public static void write(RealmObject n){
+    public static void write(Marker m){
         realm.beginTransaction();
-        realm.insertOrUpdate(n);
+        realm.insertOrUpdate(m);
         realm.commitTransaction();
     }
 
-
-    //reads from database, based on className type
-    //(if within package, has to be included as well
-    //has potential to expand to include more parameters (maybe?)
-    public static <E extends RealmObject> RealmResults<E> read(Context context, String className){
-        String packageName = context.getPackageName();
-        RealmResults<E> realmObj = null;
-
-        try {
-            Class objectClass = Class.forName(packageName+"."+className);
-
-            //realm read
-            realm.beginTransaction();
-            realmObj = realm.where(objectClass).findAll();
-            realm.commitTransaction();
-
-        } catch (ClassNotFoundException e) {
-            Log.d(TAG, e.toString());
-        }
-
-        return realmObj;
-    }
+//
+//    //reads from database, based on className type
+//    //(if within package, has to be included as well
+//    //has potential to expand to include more parameters (maybe?)
+//    public static <E extends RealmObject> RealmResults<E> read(Context context, String className){
+//        String packageName = context.getPackageName();
+//        RealmResults<E> realmObj = null;
+//
+//        try {
+//            Class objectClass = Class.forName(packageName+"."+className);
+//
+//            //realm read
+//            realm.beginTransaction();
+//            realmObj = realm.where(objectClass).findAll();
+//            realm.commitTransaction();
+//
+//        } catch (ClassNotFoundException e) {
+//            Log.d(TAG, e.toString());
+//        }
+//
+//        return realmObj;
+//    }
 
     //empty out db
     //always call open() before calling clear() and close() after

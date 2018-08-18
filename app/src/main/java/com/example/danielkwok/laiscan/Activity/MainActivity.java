@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.danielkwok.laiscan.Class.Marker;
 import com.example.danielkwok.laiscan.Class.Utils;
+import com.example.danielkwok.laiscan.Database.RealmManager;
 import com.example.danielkwok.laiscan.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.ErrorDialogFragment;
@@ -24,6 +25,10 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
+
 
 public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
@@ -34,6 +39,9 @@ public class MainActivity extends AppCompatActivity{
     private IntentIntegrator QRScan;
 
     private Marker marker;
+    private Marker latestMarker;
+    private Realm realm;
+    private RealmResults<Marker> results;
 
 //    public boolean isServicesOK(){
 //        Log.d(TAG, "isServicesOK: checking google services version");
@@ -67,6 +75,9 @@ public class MainActivity extends AppCompatActivity{
                 QRScan.initiateScan();
             }
         });
+
+        realm = RealmManager.open();
+        results = realm.where(Marker.class).findAll();
     }
 
     @Override
@@ -78,17 +89,36 @@ public class MainActivity extends AppCompatActivity{
             }else{
                 try{
                     JSONObject obj = new JSONObject(result.getContents());
-                    marker = new Marker(obj.getString("long"), obj.getString("lat"));
+                    marker = new Marker(obj.getString("long"),
+                            obj.getString("lat"));
+                    RealmManager.write(marker);
+                    results.addChangeListener(new RealmChangeListener<RealmResults<Marker>>() {
+                        @Override
+                        public void onChange(RealmResults<Marker> element) {
+                            realm = RealmManager.open();
+                            latestMarker = RealmManager.getLatest();
+                            populateText(latestMarker);
+                        }
+                    });
 
-                    main_long_t.setText();
-                    main_lat_t.setText();
                 }catch(JSONException e){
                     Log.d(TAG, e.toString());
-                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+                    Utils.writeToast(this, result.getContents());
                 }
             }
         }else{
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void populateText(Marker m){
+        main_long_t.setText(m.getLongtitude());
+        main_lat_t.setText(m.getLatitude());
+    }
+
+    @Override
+    protected void onDestroy() {
+        realm.close();
+        super.onDestroy();
     }
 }
