@@ -90,7 +90,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
             // Add a new marker and move the camera
             LatLng newCoordinate = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions().position(newCoordinate).title(newMarker.getName()));
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(newCoordinate));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(newCoordinate));
 //            CameraPosition cameraPosition = new CameraPosition.Builder()
 //                    .target(newCoordinate)
 //                    .zoom(17).build();
