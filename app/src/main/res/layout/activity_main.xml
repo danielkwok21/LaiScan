@@ -34,7 +34,7 @@
         android:layout_width="79dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_v_2"
         android:text="Lat: "
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000"
@@ -46,7 +46,7 @@
         android:layout_width="263dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="@dimen/margin_v_2"
         android:hint="Long"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000"
@@ -58,7 +58,7 @@
         android:layout_width="79dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="@dimen/margin_v_2"
         android:text="Long: "
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000"
@@ -70,12 +70,60 @@
         android:layout_width="263dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_v_2"
         android:hint="Lat"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_long_t" />
+
+    <TextView
+        android:id="@+id/main_name_label"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_v_2"
+        android:text="Name: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_long_label" />
+
+    <TextView
+        android:id="@+id/main_name_t"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/margin_v_2"
+        android:hint="Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_lat_t" />
+
+    <TextView
+        android:id="@+id/main_desc_label"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_v_2"
+        android:text="Desc: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_name_label" />
+
+    <TextView
+        android:id="@+id/main_desc_t"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/margin_v_2"
+        android:hint="Desc"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_name_t" />
 
     <fragment
         android:id="@+id/headlines_fragment"

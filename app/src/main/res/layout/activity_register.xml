@@ -32,13 +32,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/cone" />
+                    app:srcCompat="@drawable/location" />
 
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_v_2">
 
 
                 <TextView
@@ -115,6 +116,7 @@
                     android:layout_marginTop="@dimen/margin_v_1"
                     android:hint="Between -90 and 90"
                     android:textSize="@dimen/h4"
+                    android:maxLength="10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/register_lat_label" />
@@ -141,6 +143,7 @@
                     android:layout_marginTop="@dimen/margin_v_1"
                     android:hint="Between -180 and 180"
                     android:textSize="@dimen/h4"
+                    android:maxLength="11"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/register_long_label" />

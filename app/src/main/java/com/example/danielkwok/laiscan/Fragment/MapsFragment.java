@@ -14,12 +14,16 @@ import android.view.ViewGroup;
 import com.example.danielkwok.laiscan.Class.Marker;
 import com.example.danielkwok.laiscan.Database.RealmManager;
 import com.example.danielkwok.laiscan.R;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.math.BigDecimal;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -36,8 +40,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     private Realm realm;
     private RealmResults<Marker> results;
 
-    private Double latitude = 38.897770;
-    private Double longtitude =  -77.036527;
+    private double latitude = 38.897770;
+    private double longitude =  -77.036527;
 
     public MapsFragment(){
     }
@@ -81,12 +85,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
         try{
             newMarker = RealmManager.getLatest();
             latitude = Double.parseDouble(newMarker.getLatitude());
-            longtitude = Double.parseDouble(newMarker.getLongtitude());
+            longitude = Double.parseDouble(newMarker.getLongitude());
 
             // Add a new marker and move the camera
-            LatLng newCoordinate = new LatLng(longtitude, latitude);
-            mMap.addMarker(new MarkerOptions().position(newCoordinate).title("New marker!"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(newCoordinate));
+            LatLng newCoordinate = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(newCoordinate).title(newMarker.getName()));
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(newCoordinate));
+//            CameraPosition cameraPosition = new CameraPosition.Builder()
+//                    .target(newCoordinate)
+//                    .zoom(17).build();
+//            //Zoom in and animate the camera.
+//            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
         }catch(Exception e){
             Log.d(TAG, e.toString());
         }

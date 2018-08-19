@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity{
     private Button main_gen_btn;
     private TextView main_long_t;
     private TextView main_lat_t;
+    private TextView main_name_t;
+    private TextView main_desc_t;
     private IntentIntegrator QRScan;
 
     private Marker marker;
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity{
         main_gen_btn = (Button) findViewById(R.id.main_gen_btn);
         main_long_t = (TextView) findViewById(R.id.main_long_t);
         main_lat_t =  (TextView) findViewById(R.id.main_lat_t);
+        main_name_t = (TextView) findViewById(R.id.main_name_t);
+        main_desc_t =  (TextView) findViewById(R.id.main_desc_t);
         QRScan = new IntentIntegrator(this);
 
         main_scan_btn.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +92,8 @@ public class MainActivity extends AppCompatActivity{
                     marker = new Marker(
                             obj.getString("name"),
                             obj.getString("desc"),
-                            obj.getString("long"),
-                            obj.getString("lat"));
+                            obj.getString("latitude"),
+                            obj.getString("longitude"));
                     RealmManager.write(marker);
                     results.addChangeListener(new RealmChangeListener<RealmResults<Marker>>() {
                         @Override
@@ -110,8 +115,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void populateText(Marker m){
-        main_long_t.setText(m.getLongtitude());
+        main_long_t.setText(m.getLongitude());
         main_lat_t.setText(m.getLatitude());
+        main_name_t.setText(m.getName());
+        main_desc_t.setText(m.getDesc());
     }
 
     @Override

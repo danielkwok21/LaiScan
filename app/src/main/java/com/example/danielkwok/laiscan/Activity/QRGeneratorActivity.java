@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.danielkwok.laiscan.Class.QRCode;
+import com.example.danielkwok.laiscan.Class.Utils;
 import com.example.danielkwok.laiscan.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -57,14 +59,26 @@ public class QRGeneratorActivity extends AppCompatActivity {
         register_name_et = (EditText) findViewById(R.id.register_name_et);
         register_desc_et = (EditText) findViewById(R.id.register_desc_et);
         register_lat_et = (EditText) findViewById(R.id.register_lat_et);
+        register_lat_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         register_long_et = (EditText) findViewById(R.id.register_long_et);
+        register_long_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         register_new_loc_btn = (Button) findViewById(R.id.register_new_loc_btn);
 
         register_new_loc_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getUserInput();
-                register_qr_img.setImageBitmap(QRCodeBitmap);
+                try{
+                    Utils.validate(register_name_et);
+                    Utils.validate(register_desc_et);
+                    Utils.validate(register_lat_et);
+                    Utils.validate(register_long_et);
+
+                    getUserInput();
+                    register_qr_img.setImageBitmap(QRCodeBitmap);
+
+                }catch(Exception e){
+                    Utils.emptyFieldWarning(getApplicationContext());
+                }
             }
         });
 
@@ -75,9 +89,9 @@ public class QRGeneratorActivity extends AppCompatActivity {
         String name = register_name_et.getText().toString();
         String desc = register_desc_et.getText().toString();
         String latitude = register_lat_et.getText().toString();
-        String longtitude = register_long_et.getText().toString();
+        String longitude = register_long_et.getText().toString();
 
-        newQRCode = new QRCode(name, desc, latitude, longtitude);
+        newQRCode = new QRCode(name, desc, latitude, longitude);
         JSONObject jsonObject = generateJSON(newQRCode);
         generateQRCode(jsonObject);
     }
@@ -88,7 +102,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
             jsonObject.put("name", q.getName());
             jsonObject.put("desc", q.getDesc());
             jsonObject.put("latitude", q.getLatitude());
-            jsonObject.put("longtitude", q.getLongtitude());
+            jsonObject.put("longitude", q.getLongitude());
 
         } catch (JSONException e) {
             Log.d(TAG, "generateJSON: "+e.toString());

@@ -10,14 +10,14 @@ public class QRCode{
     private String name;
     private String desc;
     private String latitude;
-    private String longtitude;
+    private String longitude;
 
 
-    public QRCode(String name, String desc, String latitude, String longtitude){
+    public QRCode(String name, String desc, String latitude, String longitude){
         this.name = name;
         this.desc = desc;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -32,8 +32,8 @@ public class QRCode{
         return latitude;
     }
 
-    public String getLongtitude() {
-        return longtitude;
+    public String getLongitude() {
+        return longitude;
     }
 
 }

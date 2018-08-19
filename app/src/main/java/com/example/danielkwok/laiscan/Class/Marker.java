@@ -14,20 +14,19 @@ public class Marker extends RealmObject{
     private String name;
     private String desc;
     private String latitude;
-    private String longtitude;
+    private String longitude;
 
     public Marker(){
     }
 
 
-    public Marker(String name, String desc, String latitude, String longtitude){
+    public Marker(String name, String desc, String latitude, String longitude){
         this.createdAt = System.currentTimeMillis();
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.desc = desc;
-
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -45,8 +44,8 @@ public class Marker extends RealmObject{
         return latitude;
     }
 
-    public String getLongtitude() {
-        return longtitude;
+    public String getLongitude() {
+        return longitude;
     }
 
     public long getCreatedAt() {
